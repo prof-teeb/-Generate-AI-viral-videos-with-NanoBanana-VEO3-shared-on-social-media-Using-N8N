@@ -1,0 +1,1728 @@
+{
+  "name": "💥 Generate AI viral videos with NanoBanana & VEO3, shared on socials via Blotato - vide",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# 📑 STEP 5 — Auto-Post to All Platforms\n\n",
+        "height": 832,
+        "width": 1344,
+        "color": 3
+      },
+      "id": "71da4a45-690f-4279-b6f1-cd24de10fe91",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1664,
+        1088
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "mediaUrl": "={{ $('Download Video from VEO3').item.json.data.response.resultUrls[0] }}",
+        "resource": "media"
+      },
+      "id": "22f19629-ec2e-4224-a94e-5d3a5bfe2d1d",
+      "name": "Upload Video to BLOTATO",
+      "type": "@blotato/n8n-nodes-blotato.blotato",
+      "position": [
+        1728,
+        1712
+      ],
+      "typeVersion": 2,
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "options": {},
+        "platform": "youtube",
+        "accountId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "8047",
+          "cachedResultUrl": "https://backend.blotato.com/v2/accounts/8047",
+          "cachedResultName": "DR FIRASS (Dr. Firas)"
+        },
+        "postContentText": "={{ $('Save Caption Video to Google Sheets').item.json['CAPTION VIDEO'] }}",
+        "postContentMediaUrls": "={{ $json.url }}",
+        "postCreateYoutubeOptionTitle": "={{ $('Save Caption Video to Google Sheets').item.json['TITRE VIDEO'] }}",
+        "postCreateYoutubeOptionPrivacyStatus": "private",
+        "postCreateYoutubeOptionShouldNotifySubscribers": false
+      },
+      "id": "eb99430c-b741-44ce-b150-17b35601d725",
+      "name": "Youtube",
+      "type": "@blotato/n8n-nodes-blotato.blotato",
+      "position": [
+        2352,
+        1504
+      ],
+      "typeVersion": 2,
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "options": {},
+        "platform": "tiktok",
+        "accountId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "9332",
+          "cachedResultUrl": "https://backend.blotato.com/v2/accounts/9332",
+          "cachedResultName": "docteur.firas"
+        },
+        "postContentText": "={{ $('Save Caption Video to Google Sheets').item.json['CAPTION VIDEO'] }}",
+        "postContentMediaUrls": "={{ $json.url }}"
+      },
+      "id": "de3548f7-cd65-4ae1-9039-3494b8a55188",
+      "name": "Tiktok",
+      "type": "@blotato/n8n-nodes-blotato.blotato",
+      "position": [
+        1984,
+        1328
+      ],
+      "typeVersion": 2,
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "numberInputs": 9
+      },
+      "id": "f04b9b25-9ef7-4247-add0-3e6bb9d87fdd",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        2640,
+        1408
+      ],
+      "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "columns": {
+          "value": {
+            "STATUS": "Published",
+            "IMAGE NAME": "={{ $('Telegram Trigger: Receive Video Idea').item.json.message.photo[2].file_unique_id }}"
+          },
+          "schema": [
+            {
+              "id": "IMAGE NAME",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "IMAGE NAME",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "IMAGE URL",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "IMAGE URL",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "IMAGE DESCRIPTION",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "IMAGE DESCRIPTION",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CAPTION",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "CAPTION",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "URL VIDEO FINAL",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "URL VIDEO FINAL",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "TITRE VIDEO",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "TITRE VIDEO",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CAPTION VIDEO",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "CAPTION VIDEO",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "STATUS",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "STATUS",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "IMAGE NAME"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "f1d2f0bf-afbe-4279-afc5-efbe47d9c434",
+      "name": "Update Status to \"DONE\"",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        2816,
+        1520
+      ],
+      "typeVersion": 4.5
+    },
+    {
+      "parameters": {
+        "options": {},
+        "platform": "linkedin",
+        "accountId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1446",
+          "cachedResultUrl": "https://backend.blotato.com/v2/accounts/1446",
+          "cachedResultName": "Samuel Amalric"
+        },
+        "postContentText": "={{ $('Save Caption Video to Google Sheets').item.json['CAPTION VIDEO'] }}",
+        "postContentMediaUrls": "={{ $json.url }}"
+      },
+      "id": "473df2b1-1351-43c2-9ad5-d3fa8fa382f8",
+      "name": "Linkedin",
+      "type": "@blotato/n8n-nodes-blotato.blotato",
+      "position": [
+        2176,
+        1328
+      ],
+      "typeVersion": 2,
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "options": {},
+        "platform": "facebook",
+        "accountId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1759",
+          "cachedResultUrl": "https://backend.blotato.com/v2/accounts/1759",
+          "cachedResultName": "Firass Ben"
+        },
+        "facebookPageId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "101603614680195",
+          "cachedResultUrl": "https://backend.blotato.com/v2/accounts/1759/subaccounts/101603614680195",
+          "cachedResultName": "Dr. Firas"
+        },
+        "postContentText": "={{ $('Save Caption Video to Google Sheets').item.json['CAPTION VIDEO'] }}",
+        "postContentMediaUrls": "={{ $json.url }}"
+      },
+      "id": "081dcfd4-af95-461f-bf46-ba9482d24d23",
+      "name": "Facebook",
+      "type": "@blotato/n8n-nodes-blotato.blotato",
+      "position": [
+        2352,
+        1328
+      ],
+      "typeVersion": 2,
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "options": {},
+        "accountId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "11892",
+          "cachedResultUrl": "https://backend.blotato.com/v2/accounts/11892",
+          "cachedResultName": "doc.firass"
+        },
+        "postContentText": "={{ $('Save Caption Video to Google Sheets').item.json['CAPTION VIDEO'] }}",
+        "postContentMediaUrls": "={{ $json.url }}"
+      },
+      "id": "5da15c2d-a827-4cb2-94f4-9bc3d4e3c644",
+      "name": "Instagram",
+      "type": "@blotato/n8n-nodes-blotato.blotato",
+      "position": [
+        1984,
+        1504
+      ],
+      "typeVersion": 2,
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "options": {},
+        "platform": "threads",
+        "accountId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "2280",
+          "cachedResultUrl": "https://backend.blotato.com/v2/accounts/2280",
+          "cachedResultName": "doc.firass"
+        },
+        "postContentText": "={{ $('Save Caption Video to Google Sheets').item.json['CAPTION VIDEO'] }}",
+        "postContentMediaUrls": "={{ $json.url }}"
+      },
+      "id": "52403f3f-9a81-4ac3-a499-d258b998eb90",
+      "name": "Threads",
+      "type": "@blotato/n8n-nodes-blotato.blotato",
+      "position": [
+        1984,
+        1712
+      ],
+      "typeVersion": 2,
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "options": {},
+        "platform": "bluesky",
+        "accountId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "6012",
+          "cachedResultUrl": "https://backend.blotato.com/v2/accounts/6012",
+          "cachedResultName": "formationinternet.bsky.social"
+        },
+        "postContentText": "={{ $('Save Caption Video to Google Sheets').item.json['CAPTION VIDEO'] }}",
+        "postContentMediaUrls": "={{ $json.url }}"
+      },
+      "id": "9d5e65ae-93f9-4b83-bf50-4c7a1672b0ea",
+      "name": "Bluesky",
+      "type": "@blotato/n8n-nodes-blotato.blotato",
+      "position": [
+        2176,
+        1712
+      ],
+      "typeVersion": 2,
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "options": {},
+        "platform": "pinterest",
+        "accountId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "363",
+          "cachedResultUrl": "https://backend.blotato.com/v2/accounts/363",
+          "cachedResultName": "formationinternet2022"
+        },
+        "postContentText": "={{ $('Save Caption Video to Google Sheets').item.json['CAPTION VIDEO'] }}",
+        "pinterestBoardId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1146658823815436667"
+        },
+        "postContentMediaUrls": "={{ $json.url }}"
+      },
+      "id": "f9afce0f-1be6-4cbc-afd6-550b5d9d6a21",
+      "name": "Pinterest",
+      "type": "@blotato/n8n-nodes-blotato.blotato",
+      "position": [
+        2352,
+        1712
+      ],
+      "typeVersion": 2,
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "options": {},
+        "platform": "twitter",
+        "accountId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1289",
+          "cachedResultUrl": "https://backend.blotato.com/v2/accounts/1289",
+          "cachedResultName": "Docteur_Firas"
+        },
+        "postContentText": "={{ $('Save Caption Video to Google Sheets').item.json['CAPTION VIDEO'] }}",
+        "postContentMediaUrls": "={{ $json.url }}"
+      },
+      "id": "109ded51-4515-4cf4-8ddd-ada4ff9c8fd4",
+      "name": "Twitter (X)",
+      "type": "@blotato/n8n-nodes-blotato.blotato",
+      "position": [
+        2176,
+        1504
+      ],
+      "typeVersion": 2,
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "id": "a5b09bd7-1285-4737-be7b-fd082855be8c",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1184,
+        1424
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {},
+      "id": "65d10ac6-f7d1-48f9-a7eb-9e8f18c92500",
+      "name": "Think",
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "position": [
+        1328,
+        1424
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"title\": \"string\",\n  \"final_prompt\": \"string\"\n}\n"
+      },
+      "id": "3608f092-2783-4941-b007-c7fed7bb49f6",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "position": [
+        1472,
+        1424
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger: Receive Video Idea').item.json.message.chat.id }}",
+        "text": "=Url VIDEO : {{ $('Download Video from VEO3').item.json.data.response.resultUrls[0] }}",
+        "additionalFields": {}
+      },
+      "id": "14ea813e-0263-430d-bca6-4352cac8509e",
+      "name": "Send Video URL via Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        1712,
+        1216
+      ],
+      "webhookId": "ea6e5974-1930-4b67-a51b-16249a9ed8bd",
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "operation": "sendVideo",
+        "chatId": "={{ $json.result.chat.id }}",
+        "file": "={{ $('Save Caption Video to Google Sheets').item.json['URL VIDEO FINAL'] }}",
+        "additionalFields": {}
+      },
+      "id": "01e05da2-156c-4ffa-865b-6f06ac23c730",
+      "name": "Send Final Video Preview",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        1728,
+        1456
+      ],
+      "webhookId": "443fd41d-a051-45bf-ad68-173197dba26b",
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "9bb94c3f-a636-472e-8a9a-e4cd020ecb5b",
+      "name": "Telegram Trigger: Receive Video Idea",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "position": [
+        496,
+        640
+      ],
+      "webhookId": "26dbe6f5-5197-4b2b-9e32-8060f2119686",
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cc2e0500-57b1-4615-82cb-1c950e5f2ec4",
+              "name": "json_master",
+              "type": "string",
+              "value": "={\n  \"description\": \"Brief narrative description of the scene, focusing on key visual storytelling and product transformation.\",\n  \"style\": \"cinematic | photorealistic | stylized | gritty | elegant\",\n  \"camera\": {\n    \"type\": \"fixed | dolly | Steadicam | crane combo\",\n    \"movement\": \"describe any camera moves like slow push-in, pan, orbit\",\n    \"lens\": \"optional lens type or focal length for cinematic effect\"\n  },\n  \"lighting\": {\n    \"type\": \"natural | dramatic | high-contrast\",\n    \"sources\": \"key lighting sources (sunset, halogen, ambient glow...)\",\n    \"FX\": \"optional VFX elements like fog, reflections, flares\"\n  },\n  \"environment\": {\n    \"location\": \"describe location or room (kitchen, desert, basketball court...)\",\n    \"set_pieces\": [\n      \"list of key background or prop elements\",\n      \"e.g. hardwood floors, chain-link fence, velvet surface\"\n    ],\n    \"mood\": \"describe the ambient atmosphere (moody, clean, epic...)\"\n  },\n  \"elements\": [\n    \"main physical items involved (product box, accessories, vehicles...)\",\n    \"include brand visibility (logos, packaging, texture...)\"\n  ],\n  \"subject\": {\n    \"character\": {\n      \"description\": \"optional – physical description, outfit\",\n      \"pose\": \"optional – position or gesture\",\n      \"lip_sync_line\": \"optional – spoken line if there’s a voiceover\"\n    },\n    \"product\": {\n      \"brand\": \"Brand name\",\n      \"model\": \"Product model or name\",\n      \"action\": \"description of product transformation or assembly\"\n    }\n  },\n  \"motion\": {\n    \"type\": \"e.g. transformation, explosion, vortex\",\n    \"details\": \"step-by-step visual flow of how elements move or evolve\"\n  },\n  \"VFX\": {\n    \"transformation\": \"optional – describe style (neon trails, motion blur...)\",\n    \"impact\": \"optional – e.g. shockwave, glow, distortion\",\n    \"particles\": \"optional – embers, sparks, thread strands...\",\n    \"environment\": \"optional – VFX affecting the scene (ripples, wind...)\"\n  },\n  \"audio\": {\n    \"music\": \"optional – cinematic score, trap beat, ambient tone\",\n    \"sfx\": [\n      \"list of sound effects (zip, pop, woosh...)\"\n    ],\n    \"ambience\": \"optional – background soundscape (traffic, wind...)\",\n    \"voiceover\": {\n      \"delivery\": \"tone and style (confident, whisper, deep...)\",\n      \"line\": \"text spoken if applicable\"\n    }\n  },\n  \"ending\": \"Final shot description – what is seen or felt at the end (freeze frame, logo pulse, glow...)\",\n  \"text\": \"none | overlay | tagline | logo pulse at end only\",\n  \"format\": \"16:9 | 4k | vertical\",\n  \"keywords\": [\n    \"brand\",\n    \"scene style\",\n    \"motion type\",\n    \"camera style\",\n    \"sound mood\",\n    \"target theme\"\n  ]\n}\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e39e4489-1bfe-4958-8a01-152e26cfccbd",
+      "name": "Set Master Prompt",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        944,
+        1200
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Create a UGC-style video prompt using both the reference image and the user description.  \n\n**Inputs**  \n- User description (optional):  \n  `{{ $('Telegram Trigger: Receive Video Idea').item.json.message.caption }}`  \n- Reference image analysis (stay strictly faithful to what’s visible):  \n  `{{ $('Google Sheets: Update Image Description').item.json['IMAGE DESCRIPTION'] }}`  \n\n**Rules**  \n- Keep the style casual, authentic, and realistic. Avoid studio-like or cinematic language.  \n- Default model: `veo3_fast` (unless otherwise specified).  \n- Output only **one JSON object** with the key: `video_prompt`.  \n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=system_prompt:\n  ## SYSTEM PROMPT: Structured Video Ad Prompt Generator\n  A - Ask:\n    Generate a structured video ad prompt for cinematic generation, strictly based on the master schema provided in: {{ $json.json_master }}.\n    The final result must be a JSON object with exactly two top-level keys: `title` and `final_prompt`.\n\n  G - Guidance:\n    role: Creative Director\n    output_count: 1\n    character_limit: None\n    constraints:\n      - The output must be valid JSON.\n      - The `title` field should contain a short, descriptive and unique title (max 15 words).\n      - The `final_prompt` field must contain a **single-line JSON string** that follows the exact structure of {{ $json.json_master }} with all fields preserved.\n      - Do not include any explanations, markdown, or extra text — only the JSON object.\n      - Escape all inner quotes in the `final_prompt` string so it is valid as a stringified JSON inside another JSON.\n    tool_usage:\n      - Ensure consistent alignment across all fields (camera, lighting, motion, etc.).\n      - Maintain full structure even for optional fields (use \"none\", \"\", or [] as needed).\n\n  N - Notation:\n    format: JSON\n    expected_output:\n      {\n        \"title\": \"A unique short title for the scene\",\n        \"final_prompt\": \"{...stringified JSON of the full prompt...}\"\n      }\n\n"
+        }
+      },
+      "id": "f5a80a68-aaf2-489b-8a09-41352bea9cf5",
+      "name": "AI Agent: Generate Video Script",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1264,
+        1200
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/veo/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\n  \"prompt\": {{ $json.prompt }},\n  \"model\": \"{{ $('Google Sheets: Read Video Parameters (CONFIG)').item.json.model }}\",\n  \"aspectRatio\": \"{{ $json.aspectRatio }}\",\n  \"imageUrls\": [\n    \"{{ $('Download Edited Image').item.json.images[0].url }}\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "2cdc38c0-1172-40a2-87b3-0d83d355ad96",
+      "name": "Generate Video with VEO3",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        544,
+        1712
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "id": "9467940f-e8fa-4379-be42-de81ae10eb7e",
+      "name": "Wait for VEO3 Rendering",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        752,
+        1712
+      ],
+      "webhookId": "f6d814f3-4eb8-4629-a920-134cfa4ea03b",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/veo/record-info",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $('Generate Video with VEO3').item.json.data.taskId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "16149dd3-1edb-40cf-8a07-0fa6c8ed0347",
+      "name": "Download Video from VEO3",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        960,
+        1712
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o",
+          "cachedResultName": "GPT-4O"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are rewriting a TikTok video script, caption, and overlay —\nnot inventing a new one. You must follow this format and obey\nthese rules strictly.\n---\n### CONTEXT:\nHere is the content idea to use:{{ $('Telegram Trigger: Receive Video Idea').item.json.message.caption }}\n\nand the Title is : {{ $('AI Agent: Generate Video Script').item.json.output.title }}\n\n\nWrite the caption text using the topic.\n\n---\n- MUST be under 200 characters (yes \"Characters\" not wordcount)\nthis is an absolute MUST, no more than 200 characters!!! \n\n### FINAL OUTPUT FORMAT (no markdown formatting):\n\nDO NOT return any explanations. Only return the Caption Text\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "be3b090a-8a5f-4d40-aeb7-6c67d8a9a931",
+      "name": "Rewrite Caption with GPT-4o",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        1120,
+        1712
+      ],
+      "typeVersion": 1.8
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "columns": {
+          "value": {
+            "STATUS": "CREATE",
+            "IMAGE NAME": "={{ $('Telegram Trigger: Receive Video Idea').item.json.message.photo[2].file_unique_id }}",
+            "TITRE VIDEO": "={{ $('AI Agent: Generate Video Script').item.json.output.title }}",
+            "CAPTION VIDEO": "={{ $json.message.content }}",
+            "URL VIDEO FINAL": "={{ $('Download Video from VEO3').item.json.data.response.resultUrls[0] }}"
+          },
+          "schema": [
+            {
+              "id": "IMAGE NAME",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "IMAGE NAME",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "IMAGE URL",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "IMAGE URL",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "IMAGE DESCRIPTION",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "IMAGE DESCRIPTION",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CAPTION",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "CAPTION",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "URL VIDEO FINAL",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "URL VIDEO FINAL",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "TITRE VIDEO",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "TITRE VIDEO",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CAPTION VIDEO",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "CAPTION VIDEO",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "STATUS",
+              "type": "string",
+              "display": true,
+              "required": false,
+              "displayName": "STATUS",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "IMAGE NAME"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "2752db36-c781-4ed1-9eed-37e82808e988",
+      "name": "Save Caption Video to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        1424,
+        1712
+      ],
+      "typeVersion": 4.6
+    },
+    {
+      "parameters": {
+        "jsCode": "const structuredPrompt = $input.first().json.output.final_prompt;\nreturn {\n  json: {\n    prompt: JSON.stringify(structuredPrompt), // this escapes it correctly!\n    model: \"veo3_fast\",\n    aspectRatio: \"16:9\"\n  }\n};\n"
+      },
+      "id": "a6d24681-e7f9-4259-b81e-d69ab2fc3225",
+      "name": "Format Prompt",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        544,
+        1408
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "content": "# 📑 STEP 3 — Generate Video Ad Script",
+        "height": 460,
+        "width": 1180,
+        "color": 3
+      },
+      "id": "cc726977-7dfb-4018-94b2-8a2d97d83f22",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        432,
+        1088
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# 📑 STEP 4 — Generate Video with VEO3",
+        "height": 320,
+        "width": 1180,
+        "color": 3
+      },
+      "id": "cbdb8d4f-0136-4e15-9f59-6a3d6423a6fe",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        432,
+        1600
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# 📑 STEP 1 — Collect Idea & Image",
+        "height": 592,
+        "width": 1184,
+        "color": 3
+      },
+      "id": "a33f9b0a-3ae1-4e8a-a674-ca91c761dbe0",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        432,
+        448
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# 📑 STEP 2 — Create Image with NanoBanana\n",
+        "height": 592,
+        "width": 1328,
+        "color": 3
+      },
+      "id": "3346b692-0d7c-484a-ac17-36de3fe388ee",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1664,
+        448
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.photo[2].file_id }}",
+        "additionalFields": {}
+      },
+      "id": "f106c7d8-8b8f-443c-85bf-cdc7a11e5c93",
+      "name": "Telegram: Get Image File",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        928,
+        512
+      ],
+      "webhookId": "06ceb31d-dcd9-4a9a-bbbe-a7bf7ae0ad4a",
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Telegram Trigger: Receive Video Idea').item.json.message.photo[2].file_unique_id }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "options": {}
+      },
+      "id": "c464a7d8-4187-4056-91d9-29e6ab226af8",
+      "name": "Google Drive: Upload Image",
+      "type": "n8n-nodes-base.googleDrive",
+      "position": [
+        944,
+        704
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "columns": {
+          "value": {
+            "STATUS": "EN COURS",
+            "CAPTION": "={{ $('Telegram Trigger: Receive Video Idea').item.json.message.caption }}",
+            "IMAGE URL": "={{ $json.webContentLink }}",
+            "IMAGE NAME": "={{ $('Telegram Trigger: Receive Video Idea').item.json.message.photo[2].file_unique_id }}"
+          },
+          "schema": [
+            {
+              "id": "IMAGE NAME",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "IMAGE NAME",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "IMAGE URL",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "IMAGE URL",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "IMAGE DESCRIPTION",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "IMAGE DESCRIPTION",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CAPTION",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "CAPTION",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "STATUS",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "STATUS",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "IMAGE NAME"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "21079f48-9018-4d4b-9f4d-83ddd71b4dc1",
+      "name": "Google Sheets: Log Image & Caption",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        944,
+        880
+      ],
+      "typeVersion": 4.7
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "af62651a-3fc8-419d-908b-6514f6f4bcb3",
+              "name": "YOUR_BOT_TOKEN",
+              "type": "string",
+              "value": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "24fcd5bb-90ce-4bb2-8cb9-fc91fa40c1fe",
+      "name": "Set: Bot Token (Placeholder)",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1184,
+        640
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "url": "=https://api.telegram.org/bot{{ $json.YOUR_BOT_TOKEN }}/getFile?file_id={{ $('Telegram Trigger: Receive Video Idea').item.json.message.photo[3].file_id }}",
+        "options": {}
+      },
+      "id": "f7123646-0924-40ad-9bf1-f56e1cac6758",
+      "name": "Telegram API: Get File URL",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1376,
+        640
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "chatgpt-4o-latest",
+          "cachedResultName": "CHATGPT-4O-LATEST"
+        },
+        "text": "=You are an image analysis assistant.\n\nYour task is to analyze the given image and output results **only in YAML format**. Do not add explanations, comments, or extra text outside YAML.\n\nRules:\n\n- If the image depicts a **product**, return:\n    \n    ```yaml\n    brand_name: (brand if visible or inferable)\n    color_scheme:\n      - hex: (hex code of each prominent color)\n        name: (descriptive name of the color)\n    font_style: (serif/sans-serif, bold/thin, etc.)\n    visual_description: (1–2 sentences summarizing what is seen, ignoring the background)\n    \n    ```\n    \n- If the image depicts a **character**, return:\n    \n    ```yaml\n    character_name: (name if visible or inferable, else \"unknown\")\n    color_scheme:\n      - hex: (hex code of each prominent color on the character)\n        name: (descriptive name of the color)\n    outfit_style: (clothing style, accessories, or notable features)\n    visual_description: (1–2 sentences summarizing what the character looks like, ignoring the background)\n    \n    ```\n    \n- If the image depicts **both**, return **both sections** in YAML.\n\nOnly output valid YAML. No explanations.",
+        "imageUrls": "=https://api.telegram.org/file/bot{{ $('Set: Bot Token (Placeholder)').item.json.YOUR_BOT_TOKEN }}/{{ $json.result.file_path }}",
+        "options": {}
+      },
+      "id": "144481fc-dc0e-445d-97a7-36f3c0a3c9f1",
+      "name": "OpenAI Vision: Analyze Reference Image",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        1792,
+        640
+      ],
+      "typeVersion": 1.8
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "columns": {
+          "value": {
+            "IMAGE NAME": "={{ $('Telegram Trigger: Receive Video Idea').item.json.message.photo[2].file_unique_id }}",
+            "IMAGE DESCRIPTION": "={{ $json.content }}"
+          },
+          "schema": [
+            {
+              "id": "IMAGE NAME",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "IMAGE NAME",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "IMAGE URL",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "IMAGE URL",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "IMAGE DESCRIPTION",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "IMAGE DESCRIPTION",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CAPTION",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "CAPTION",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "STATUS",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "STATUS",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "IMAGE NAME"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "f8502b3f-cabc-4eff-acac-383cad758bd6",
+      "name": "Google Sheets: Update Image Description",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        2032,
+        640
+      ],
+      "typeVersion": 4.7
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"image_prompt\": \"string\"\n}"
+      },
+      "id": "f75ac0ec-a397-40de-a258-eff273eb5f05",
+      "name": "LLM: Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "position": [
+        2416,
+        880
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "id": "cb45d14e-b3a7-43ba-a344-076cc524bf36",
+      "name": "LLM: OpenAI Chat",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        2208,
+        880
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Your task is to create an image prompt following the system guidelines.  \nEnsure that the reference image is represented as **accurately as possible**, including all text elements.  \n\nUse the following inputs:  \n\n- **User’s description:**  \n{{ $json.CAPTION }}\n\n- **Reference image description:**  \n{{ $json['IMAGE DESCRIPTION'] }}\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=ROLE: UGC Image Prompt Builder  \n\nGOAL:  \nGenerate one concise, natural, and realistic image prompt (≤120 words) from a given product or reference image. The prompt must simulate authentic UGC (user-generated content) photography.  \n\nRULES:  \n- Always output **one JSON object only** with the key:  \n  - `image_prompt`: (string with full description)  \n- Do **not** add commentary, metadata, or extra keys. JSON only.  \n\nSTYLE GUIDELINES:  \n- Tone: casual, unstaged, lifelike, handheld snapshot.  \n- Camera cues: include at least 2–3 (e.g., phone snapshot, handheld framing, off-center composition, natural indoor light, soft shadows, slight motion blur, auto exposure, unpolished look, mild grain).  \n- Realism: embrace imperfections (wrinkles, stray hairs, skin texture, clutter, smudges).  \n- Packaging/Text: preserve exactly as visible. Never invent claims, numbers, or badges.  \n- Diversity: if people appear but are unspecified, vary gender/ethnicity naturally; default age range = 21–38.  \n- Setting: default to real-world everyday spaces (home, street, store, gym, office).  \n\nSAFETY:  \n- No copyrighted character names.  \n- No dialogue or scripts. Only describe scenes.  \n\nOUTPUT CONTRACT:  \n- JSON only, no prose outside.  \n- Max 120 words in `image_prompt`.  \n- Must cover: subject, action, mood, setting, style/camera, colors, and text accuracy.  \n\nCHECKLIST BEFORE OUTPUT:  \n- Natural handheld tone?  \n- At least 2 camera cues included?  \n- Product text preserved exactly?  \n- Only JSON returned?  \n\n---  \n\n### Example  \n\nGood Example :  \n```json\n{ \"image_prompt\": \"a young adult casually holding a skincare tube near a bathroom mirror; action: dabs small amount on the back of the hand; mood: easy morning; setting: small apartment bathroom with towel on rack and toothbrush cup; style/camera: phone snapshot, handheld framing, off-center composition, natural window light, slight motion blur, mild grain; colors: soft whites and mint label; text accuracy: keep every word on the tube exactly as visible, no added claims\" }\n"
+        }
+      },
+      "id": "ecae2cb9-7bf6-4226-8ba8-81aacc3550f7",
+      "name": "Generate Image Prompt",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        2256,
+        640
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/nano-banana/edit",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n\t\"prompt\": \"{{ $json.output.image_prompt.replace(/\\\"/g, '\\\\\\\"').replace(/\\n/g, '\\\\n') }}\",\n\"image_urls\": [\"{{ $('Google Drive: Upload Image').item.json.webContentLink }}\"]\n\n}\n\n",
+        "options": {}
+      },
+      "id": "c7f7e2bb-d0b0-4416-b8d5-540089e16e78",
+      "name": "NanoBanana: Create Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        2592,
+        640
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "id": "dacbab3c-35f0-46ca-b60b-5a273bcca581",
+      "name": "Wait for Image Edit",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        2800,
+        640
+      ],
+      "webhookId": "df52d997-45c4-431f-bdf6-89dd25027b5b",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.response_url }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "d007606d-a5e6-4a16-8c58-11f04f6acef5",
+      "name": "Download Edited Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        2800,
+        864
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "id",
+          "value": "="
+        },
+        "options": {}
+      },
+      "id": "966074ed-510e-4e50-a9d8-bf644280c513",
+      "name": "Google Sheets: Read Video Parameters (CONFIG)",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        736,
+        1200
+      ],
+      "typeVersion": 4.6
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger: Receive Video Idea').item.json.message.chat.id }}",
+        "text": "Published",
+        "additionalFields": {}
+      },
+      "id": "5e9421fe-52ba-43c3-910f-c06a2620f983",
+      "name": "Telegram: Send notification",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        2816,
+        1728
+      ],
+      "webhookId": "2f4a4bc1-99de-4e93-8523-dd8c6499b893",
+      "typeVersion": 1.2
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Update Status to \"DONE\"",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent: Generate Video Script",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tiktok": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bluesky": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 7
+          }
+        ]
+      ]
+    },
+    "Threads": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 6
+          }
+        ]
+      ]
+    },
+    "Youtube": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "Facebook": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Linkedin": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Instagram": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Pinterest": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 8
+          }
+        ]
+      ]
+    },
+    "Twitter (X)": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Format Prompt": {
+      "main": [
+        [
+          {
+            "node": "Generate Video with VEO3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM: OpenAI Chat": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Image Prompt",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent: Generate Video Script",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Master Prompt": {
+      "main": [
+        [
+          {
+            "node": "AI Agent: Generate Video Script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Image Edit": {
+      "main": [
+        [
+          {
+            "node": "Download Edited Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Edited Image": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets: Read Video Parameters (CONFIG)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Image Prompt": {
+      "main": [
+        [
+          {
+            "node": "NanoBanana: Create Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Status to \"DONE\"": {
+      "main": [
+        [
+          {
+            "node": "Telegram: Send notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Video to BLOTATO": {
+      "main": [
+        [
+          {
+            "node": "Tiktok",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Linkedin",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Facebook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Instagram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Twitter (X)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Youtube",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Threads",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Bluesky",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Pinterest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for VEO3 Rendering": {
+      "main": [
+        [
+          {
+            "node": "Download Video from VEO3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video from VEO3": {
+      "main": [
+        [
+          {
+            "node": "Rewrite Caption with GPT-4o",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Video with VEO3": {
+      "main": [
+        [
+          {
+            "node": "Wait for VEO3 Rendering",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NanoBanana: Create Image": {
+      "main": [
+        [
+          {
+            "node": "Wait for Image Edit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Final Video Preview": {
+      "main": [
+        [
+          {
+            "node": "Upload Video to BLOTATO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent: Generate Video Script",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram: Get Image File": {
+      "main": [
+        [
+          {
+            "node": "Google Drive: Upload Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive: Upload Image": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets: Log Image & Caption",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram API: Get File URL": {
+      "main": [
+        [
+          {
+            "node": "OpenAI Vision: Analyze Reference Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rewrite Caption with GPT-4o": {
+      "main": [
+        [
+          {
+            "node": "Save Caption Video to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Video URL via Telegram": {
+      "main": [
+        [
+          {
+            "node": "Send Final Video Preview",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set: Bot Token (Placeholder)": {
+      "main": [
+        [
+          {
+            "node": "Telegram API: Get File URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM: Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Generate Image Prompt",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent: Generate Video Script": {
+      "main": [
+        [
+          {
+            "node": "Format Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets: Log Image & Caption": {
+      "main": [
+        [
+          {
+            "node": "Set: Bot Token (Placeholder)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Caption Video to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Send Video URL via Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger: Receive Video Idea": {
+      "main": [
+        [
+          {
+            "node": "Set: Bot Token (Placeholder)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Telegram: Get Image File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Vision: Analyze Reference Image": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets: Update Image Description",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets: Update Image Description": {
+      "main": [
+        [
+          {
+            "node": "Generate Image Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets: Read Video Parameters (CONFIG)": {
+      "main": [
+        [
+          {
+            "node": "Set Master Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "461ac5dc-9dd7-4e5f-b9ed-910eb29c53f4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "79ca1c2e1ba2143b110a64a072fbd181ef45f6d3abaeb591beacf5e31b26e46a"
+  },
+  "id": "AZRa85gh1U8t0TuO",
+  "tags": []
+}
